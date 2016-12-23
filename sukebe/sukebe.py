@@ -2,12 +2,13 @@ import discord
 from discord.ext import commands
 import random
 
-
 class Sukebe:
     """Paruru sensei can detect your Sukebe-ness."""
 
     def __init__(self, bot):
         self.bot = bot
+        self.rng = random.Random()
+        self.rng.seed() # seeds with system time or os.urandom()
 
     @commands.command(pass_context=True)
     async def sukebe(self, ctx, user: discord.Member):
@@ -15,8 +16,8 @@ class Sukebe:
 
         157% accurate!"""
 
-        random.seed(int(user.id) % int(ctx.message.timestamp.timestamp()),)
-        x = ":fire:" * random.randint(0, 10)
+        # it's getting hot in here
+        x = ":fire:" * self.rng.randint(5, 30)
         await self.bot.say("{}'s Sukebe-ness is : ".format(user.mention) + x)
 
 
